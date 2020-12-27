@@ -1,0 +1,3 @@
+<template>
+  Exercise Page.
+</template>
