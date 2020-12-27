@@ -5,7 +5,7 @@ import { exercises } from '@/lib/exercise'
 export default defineComponent({
   name: 'Home',
   setup () {
-    const getExerciseColor = (exercise: Exercise) => {
+    const getExerciseColor = (exercise: any) => {
       switch (exercise.difficulty) {
         case 0:
           return '#00701a'

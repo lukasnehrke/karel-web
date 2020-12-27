@@ -9,7 +9,7 @@ export class Exercise {
   constructor (title: string, difficulty: number) {
     this.title = title
     this.difficulty = difficulty
-    this.slug = slugify(title)
+    this.slug = title
   }
 }
 
