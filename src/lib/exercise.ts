@@ -1,5 +1,3 @@
-import { slugify } from '@/lib/util'
-
 export class Exercise {
 
   public readonly title: string

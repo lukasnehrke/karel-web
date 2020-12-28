@@ -7,7 +7,7 @@ export default defineComponent({
 </script>
 
 <template>
-  <div class="console">
+  <div class="console body-2">
     Benutze print() um auf der Konsole auszugeben.
   </div>
 </template>
@@ -18,6 +18,6 @@ export default defineComponent({
     height: 100%;
     resize: none;
     padding: 6px;
-    background-color: #cfd8dc;
+    background-color: #eceff1;
   }
 </style>
