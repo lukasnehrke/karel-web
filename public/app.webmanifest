@@ -1,0 +1,23 @@
+{
+  "background_color": "#ffffff",
+  "description": "Learn how to code with Karel.",
+  "dir": "ltr",
+  "display": "standalone",
+  "icons": [
+    {
+      "src": "/android-chrome-192x192.png",
+      "type": "image/png",
+      "sizes": "192x192"
+    },
+    {
+      "src": "/android-chrome-512x512.png",
+      "type": "image/png",
+      "sizes": "512x512"
+    }
+  ],
+  "name": "Karel",
+  "orientation": "portrait-primary",
+  "short_name": "Karel",
+  "start_url": "/",
+  "theme_color": "#1976d2"
+}
