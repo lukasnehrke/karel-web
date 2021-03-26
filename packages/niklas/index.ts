@@ -88,11 +88,11 @@ export class Niklas {
             throw new Error("Cannot handle token " + this.peek());
           }
         }
-        return resolve(null)
+        return resolve(null);
       } catch (e) {
-        return reject({ error: e.message })
+        return reject({ error: e.message });
       }
-    })
+    });
   }
 
   protected executeFunction(method: Method): Value {
@@ -280,15 +280,15 @@ export class Niklas {
     }
   }
 
-  protected handleAssert (next: any) {
-    if (this.peek() !== 'assert') {
-      next()
-      return
+  protected handleAssert(next: any) {
+    if (this.peek() !== "assert") {
+      next();
+      return;
     }
-    this.get()
-    const condition = this.evaluate()
+    this.get();
+    const condition = this.evaluate();
     if (!condition) {
-      throw new Error('Assertion failed: ' + condition)
+      throw new Error("Assertion failed: " + condition);
     }
   }
 
