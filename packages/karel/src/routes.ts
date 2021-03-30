@@ -1,4 +1,3 @@
-import { defineAsyncComponent } from "vue";
 import { createRouter, createWebHistory } from "vue-router";
 
 export default createRouter({
@@ -7,12 +6,12 @@ export default createRouter({
     {
       path: "/",
       name: "home",
-      component: defineAsyncComponent(() => import("@/views/Home.vue")),
+      component: () => import("@/views/Home.vue"),
     },
     {
       path: "/:exercise",
       name: "exercise",
-      component: defineAsyncComponent(() => import("@/views/Exercise.vue")),
+      component: () => import("@/views/Exercise.vue"),
     },
   ],
 });
