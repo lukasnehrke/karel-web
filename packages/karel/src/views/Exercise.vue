@@ -1,7 +1,7 @@
 <script lang="ts">
 import { defineComponent, ref, watch, onMounted, provide } from "vue";
 import { useRouter } from "vue-router";
-import { Lang } from "@/lib/lang";
+import { Niklas } from "@evorto/niklas";
 import Split from "split.js";
 
 import Editor from "@/components/exercise/Editor.vue";
@@ -32,15 +32,15 @@ export default defineComponent({
     };
 
     const configureLang = () => {
-      const lang = new Lang();
-      lang.addFunction("moveForward", [], () => world.value.moveForward());
-      lang.addFunction("turnLeft", [], () => world.value.turnLeft());
-      lang.addFunction("turnRight", [], () => world.value.turnRight());
-      lang.addFunction("turnAround", [], () => world.value.turnAround());
-      lang.addFunction("pickBeeper", [], () => world.value.pickBeeper());
-      lang.addFunction("frontIsClear", [], () => world.value.frontIsClear());
-      lang.addFunction("wallAhead", [], () => world.value.wallAhead());
-      lang.addFunction("boxAhead", [], () => world.value.boxAhead());
+      const lang = new Niklas();
+      lang.addFunction("moveForward", () => world.value.moveForward());
+      lang.addFunction("turnLeft", () => world.value.turnLeft());
+      lang.addFunction("turnRight", () => world.value.turnRight());
+      lang.addFunction("turnAround", () => world.value.turnAround());
+      lang.addFunction("pickBeeper", () => world.value.pickBeeper());
+      lang.addFunction("frontIsClear", () => world.value.frontIsClear());
+      lang.addFunction("wallAhead", () => world.value.wallAhead());
+      lang.addFunction("boxAhead", () => world.value.boxAhead());
       lang.getVariable("delay").value = 500;
       exercise.value.configureLang && exercise.value.configureLang(lang);
       return lang;

@@ -6,6 +6,7 @@ importers:
       prettier: ^2.2.1
   packages/karel:
     dependencies:
+      '@evorto/niklas': link:../niklas
       codemirror: 5.60.0
       core-js: 3.9.1
       regenerator-runtime: 0.13.7
@@ -28,6 +29,7 @@ importers:
       typescript: 3.9.9
       workbox-webpack-plugin: 6.1.2
     specifiers:
+      '@evorto/niklas': workspace:*
       '@types/codemirror': ^0.0.103
       '@vue/cli-plugin-babel': ^4.5.11
       '@vue/cli-plugin-typescript': ^4.5.11
