@@ -32,5 +32,5 @@ test("recursion", async () => {
   `;
 
   await expect(niklas.run(code)).resolves.toEqual(0);
-  expect(niklas.getVariable("result").value).toEqual(144);
+  expect(niklas.getVariable("result").value).toEqual(34);
 });

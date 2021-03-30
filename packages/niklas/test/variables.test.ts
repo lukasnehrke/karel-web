@@ -9,7 +9,7 @@ test("decleration", async () => {
     val z = 42;
   `;
 
-  await expect(niklas.run(code)).resolves.toEqual(null);
+  await expect(niklas.run(code)).resolves.toEqual(0);
   expect(niklas.getVariable("x")).toEqual({ final: false, type: "any", value: 17 });
   expect(niklas.getVariable("z")).toEqual({ final: true, type: "any", value: 42 });
 });
