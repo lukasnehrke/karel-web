@@ -7,6 +7,8 @@ type Parameter = { name: string; type: Type };
 type Method = { params: Parameter[]; returns: Type; body: string[] | Function };
 type Value = Boolean | Number | String | Method;
 
+class SyntaxError extends Error {}
+
 export class Niklas {
   public readonly parent?: Niklas;
   public readonly variables: any;
@@ -69,16 +71,35 @@ export class Niklas {
 
   /* Core */
 
-  protected async execute() {
+  protected async execute(): Promise<Value> {
     return new Promise(async (resolve, reject) => {
       try {
         while (this.tokens.length) {
           let found = false;
+
+          if (this.peek() === "return") {
+            this.get()
+            const value = await this.evaluate()
+            if (!this.parent && typeof value !== "number") {
+              throw new SyntaxError("Returned value must be a number")
+            }
+            return resolve(value)
+          }
+
           const handlers = this.getHandlers();
           await this.applyDelay();
           for (const i in handlers) {
             let next = false;
-            const result = handlers[i].handler.call(this, () => (next = true));
+
+            const result = await handlers[i].handler.call(this, () => {
+              next = true;
+              return false;
+            });
+
+            if (result) {
+              return resolve(result)
+            }
+
             if (!next) {
               found = true;
               break;
@@ -88,14 +109,14 @@ export class Niklas {
             throw new Error("Cannot handle token " + this.peek());
           }
         }
-        return resolve(null);
+        return resolve(0);
       } catch (e) {
-        return reject({ error: e.message });
+        return reject({ error: e });
       }
     });
   }
 
-  protected executeFunction(method: Method): Value {
+  protected async executeFunction(method: Method): Promise<Value> {
     if (this.get(this.tokens) !== "(") {
       throw new Error("Parameter list must start with parenthesis");
     }
@@ -105,7 +126,7 @@ export class Niklas {
         this.get();
         break;
       }
-      params.push(this.evaluate());
+      params.push(await this.evaluate());
       if (this.peek() === ",") {
         this.get();
       } else if (this.peek() !== ")") {
@@ -129,80 +150,79 @@ export class Niklas {
     for (let i = 0; i < params.length; i++) {
       niklas.addVariable(method.params[i].name, method.params[i].type, true, params[i]);
     }
-    niklas.run(method.body);
-    return 17;
+    return await niklas.run(method.body);
   }
 
-  protected evaluate(): Value {
+  protected async evaluate(): Promise<Value> {
     let value: Value;
     if (this.peek() === "(") {
       this.get();
-      value = this.evaluate();
+      value = await this.evaluate();
       if (this.peek() === ")") {
         this.get();
       }
     } else {
-      const left = this.evaluateExpression();
+      const left = await this.evaluateExpression();
       if (this.peek() === "==") {
         this.get();
-        const ex = this.evaluateExpression();
+        const ex = await this.evaluateExpression();
         value = left == ex;
       } else if (this.peek() === "<") {
         this.get();
-        value = left < this.evaluateExpression();
+        value = left < await this.evaluateExpression();
       } else if (this.peek() === ">") {
         this.get();
-        value = left > this.evaluateExpression();
+        value = left > await this.evaluateExpression();
       } else {
         value = left;
       }
     }
     if (this.peek() === "&&") {
       this.get();
-      const other = this.evaluate();
+      const other = await this.evaluate();
       value = value && other;
     } else if (this.peek() === "||") {
       this.get();
-      const other = this.evaluate();
+      const other = await this.evaluate();
       value = value || other;
     }
     return value;
   }
 
-  protected evaluateExpression(): Value {
-    const left = this.evaluateExpressionPriority() as any;
+  protected async evaluateExpression(): Promise<Value> {
+    const left = await this.evaluateExpressionPriority() as any;
     if (this.peek() === "+") {
       this.get();
-      return left + (this.evaluateExpression() as any);
+      return left + (await this.evaluateExpression() as any);
     }
     if (this.peek() === "-") {
       this.get();
-      return left - (this.evaluateExpression() as any);
+      return left - (await this.evaluateExpression() as any);
     }
     return left;
   }
 
-  protected evaluateExpressionPriority(): Value {
-    const left = this.evaluateUnary() as any;
+  protected async evaluateExpressionPriority(): Promise<Value> {
+    const left = await this.evaluateUnary() as any;
     if (this.peek() === "*") {
       this.get();
-      return left * (this.evaluateExpression() as any);
+      return left * (await this.evaluateExpression() as any);
     }
     if (this.peek() === "/") {
       this.get();
-      return left / (this.evaluateExpression() as any);
+      return left / (await this.evaluateExpression() as any);
     }
     if (this.peek() === "%") {
       this.get();
-      return left % (this.evaluateExpression() as any);
+      return left % (await this.evaluateExpression() as any);
     }
     return left;
   }
 
-  protected evaluateUnary(): Value {
+  protected async evaluateUnary(): Promise<Value> {
     if (this.peek() === "!") {
       this.get();
-      const result = this.evaluateUnary();
+      const result = await this.evaluateUnary();
       if (typeof result !== "boolean") {
         throw new Error("NOT-Operator ('!') can only be applied to booleans");
       }
@@ -210,7 +230,7 @@ export class Niklas {
     }
     if (this.peek() === "-") {
       this.get();
-      const result = this.evaluateUnary();
+      const result = await this.evaluateUnary();
       if (typeof result !== "number") {
         throw new Error("Minus-Operator ('-') can only be applied to numbers");
       }
@@ -218,7 +238,7 @@ export class Niklas {
     }
     if (this.peek() === "(") {
       this.get();
-      const result = this.evaluate();
+      const result = await this.evaluate();
       if (this.get() !== ")") {
         throw new Error("A parenthese was not closed");
       }
@@ -241,13 +261,13 @@ export class Niklas {
         throw new Error("Unknown variable " + name);
       }
       if (variable.type === "function") {
-        return this.executeFunction(variable.value as Method);
+        return await this.executeFunction(variable.value as Method);
       }
       let result = variable.value;
       if (this.peek() === "=") {
         this.get();
         this.checkFinal(variable);
-        result = this.evaluate();
+        result = await this.evaluate();
         this.checkTypeCompatibility(variable.type, result);
         variable.value = result;
       } else if (this.peek() === "++") {
@@ -292,7 +312,7 @@ export class Niklas {
     }
   }
 
-  protected handleVariableDeclaration(next: any) {
+  protected async handleVariableDeclaration(next: any) {
     if (!["var", "val"].includes(this.peek())) {
       return next();
     }
@@ -306,7 +326,7 @@ export class Niklas {
     if (this.get() !== "=") {
       throw new Error("Variable declaration is missing '='");
     }
-    const value = this.evaluate();
+    const value = await this.evaluate();
     if (this.peek() === ";") {
       this.get();
     }
@@ -354,7 +374,6 @@ export class Niklas {
   }
 
   protected handleStatement() {
-    console.log("Statement!");
     this.evaluate();
   }
 
