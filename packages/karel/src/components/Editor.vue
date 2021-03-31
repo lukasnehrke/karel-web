@@ -41,7 +41,8 @@ export default defineComponent({
 </template>
 
 <style lang="scss">
-.editor, .cm-editor {
+.editor,
+.cm-editor {
   outline: none !important;
   height: 100%;
 }

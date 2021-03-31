@@ -6,7 +6,7 @@ import Split from "split.js";
 
 import Editor from "../components/Editor.vue";
 import World from "@/components/exercise/World.vue";
-import Console from "@/components/exercise/Console.vue";
+import Console from "../components/Console.vue";
 
 export default defineComponent({
   name: "Exercise",
@@ -17,6 +17,7 @@ export default defineComponent({
   },
   setup() {
     const router = useRouter();
+    const console = ref();
 
     const editor = ref(false);
     const code = ref();
@@ -42,7 +43,6 @@ export default defineComponent({
         }
 
         code.value = loadCode();
-        console.log(code.value);
       } else {
         saveCode();
       }
@@ -63,6 +63,7 @@ export default defineComponent({
     const configureDefault = () => {
       const niklas = new Niklas();
       niklas.registerDefaults();
+      niklas.addFunction("print", (params: any) => console.value.append(params[0] || ""));
       niklas.addFunction("moveForward", () => world.value.moveForward());
       niklas.addFunction("turnLeft", () => world.value.turnLeft());
       niklas.addFunction("turnRight", () => world.value.turnRight());
@@ -105,6 +106,7 @@ export default defineComponent({
         running.value = false;
       }
       world.value.apply(exercise.value.generateWorld(0));
+      console.value.reset();
     };
 
     onMounted(() => {
@@ -118,6 +120,7 @@ export default defineComponent({
     return {
       exercise,
       world,
+      console,
       editor,
       code,
       running,
@@ -210,7 +213,7 @@ export default defineComponent({
           <world v-if="world" v-model="world" />
         </div>
         <div id="console">
-          <console />
+          <console ref="console" />
         </div>
       </div>
     </div>
