@@ -1,6 +1,6 @@
 <script lang="ts">
 import { defineComponent, ref, watch, onMounted, provide } from "vue";
-import { useRouter } from "vue-router";
+import { RouteLocationNormalizedLoaded, useRouter } from "vue-router";
 import { Niklas } from "@evorto/niklas";
 import Split from "split.js";
 
@@ -18,41 +18,47 @@ export default defineComponent({
   setup() {
     const router = useRouter();
 
-    const exercise = ref();
-    const world = ref();
-
     const editor = ref(false);
     const code = ref();
     const running = ref(false);
     const currentRun = ref(-1);
 
-    const routeUpdated = async (route: any) => {
+    const exercise = ref();
+    const world = ref();
+    let niklas: Niklas;
+
+    const routeUpdated = async (route: RouteLocationNormalizedLoaded) => {
       exercise.value = await import("@/lib/exercises/" + route.params.exercise);
       world.value = exercise.value.generateWorld(0);
+
+      niklas = configureDefault();
+      if (exercise.value.configureLang) {
+        niklas = exercise.value.configureNiklas(niklas);
+      }
     };
 
-    const configureLang = () => {
-      const lang = new Niklas();
-      lang.addFunction("moveForward", () => world.value.moveForward());
-      lang.addFunction("turnLeft", () => world.value.turnLeft());
-      lang.addFunction("turnRight", () => world.value.turnRight());
-      lang.addFunction("turnAround", () => world.value.turnAround());
-      lang.addFunction("pickBeeper", () => world.value.pickBeeper());
-      lang.addFunction("frontIsClear", () => world.value.frontIsClear());
-      lang.addFunction("wallAhead", () => world.value.wallAhead());
-      lang.addFunction("boxAhead", () => world.value.boxAhead());
-      lang.getVariable("delay").value = 500;
-      exercise.value.configureLang && exercise.value.configureLang(lang);
-      return lang;
+    const configureDefault = () => {
+      const niklas = new Niklas();
+      niklas.registerDefaults();
+      niklas.addFunction("moveForward", () => world.value.moveForward());
+      niklas.addFunction("turnLeft", () => world.value.turnLeft());
+      niklas.addFunction("turnRight", () => world.value.turnRight());
+      niklas.addFunction("turnAround", () => world.value.turnAround());
+      niklas.addFunction("pickBeeper", () => world.value.pickBeeper());
+      niklas.addFunction("dropBeeper", () => world.value.dropBeeper());
+      niklas.addFunction("frontIsClear", () => world.value.frontIsClear());
+      niklas.addFunction("wallAhead", () => world.value.wallAhead());
+      niklas.addFunction("boxAhead", () => world.value.boxAhead());
+      niklas.getVariable("delay").value = 500;
+      return niklas;
     };
 
     const runGoal = async () => {
       if (!running.value) {
-        const lang = configureLang();
         world.value.apply(exercise.value.generateWorld(0));
         try {
           running.value = true;
-          await lang.run(exercise.value.solution);
+          await niklas.run(exercise.value.solution);
         } finally {
           running.value = false;
         }
@@ -61,24 +67,26 @@ export default defineComponent({
 
     const runCode = async () => {
       if (!running.value) {
-        const lang = configureLang();
         world.value.apply(exercise.value.generateWorld(0));
         try {
           running.value = true;
-          await lang.run(code.value);
+          await niklas.run(code.value);
         } finally {
           running.value = false;
         }
       }
     };
 
+    const reset = async () => {
+      if (running.value) {
+        running.value = false;
+      }
+      world.value.apply(exercise.value.generateWorld(0));
+    };
+
     onMounted(() => {
       Split(["#editor", "#output"], { direction: "horizontal", gutterSize: 4 });
-      Split(["#world", "#console"], {
-        sizes: [80, 20],
-        direction: "vertical",
-        gutterSize: 4,
-      });
+      Split(["#world", "#console"], { sizes: [80, 20], direction: "vertical", gutterSize: 4 });
     });
 
     routeUpdated(router.currentRoute.value);
@@ -98,6 +106,7 @@ export default defineComponent({
       currentRun,
       runGoal,
       runCode,
+      reset,
     };
   },
 });
@@ -111,7 +120,19 @@ export default defineComponent({
           <div :class="{ tab: true, 'button-text': true, 'tab--active': !editor }" @click="editor = false">INFO</div>
           <div :class="{ tab: true, 'button-text': true, 'tab--active': editor }" @click="editor = true">CODE</div>
           <div style="flex-grow: 1" />
+          <div id="button-reset" class="button" @click="reset">
+            <div class="button__content">
+              <svg style="width: 24px; height: 24px; margin-right: 6px" viewBox="0 0 24 24">
+                <path
+                  fill="currentColor"
+                  d="M13,3A9,9 0 0,0 4,12H1L4.89,15.89L4.96,16.03L9,12H6A7,7 0 0,1 13,5A7,7 0 0,1 20,12A7,7 0 0,1 13,19C11.07,19 9.32,18.21 8.06,16.94L6.64,18.36C8.27,20 10.5,21 13,21A9,9 0 0,0 22,12A9,9 0 0,0 13,3Z"
+                />
+              </svg>
+              <span>Zurücksetzen</span>
+            </div>
+          </div>
           <div
+            id="button-goal"
             :class="{
               button: true,
               'button--disabled': running && currentRun > 0,
@@ -152,6 +173,12 @@ export default defineComponent({
 </template>
 
 <style lang="scss">
+#button-goal {
+  color: #ffffff;
+  background-color: #1976d2;
+  margin-left: 6px;
+}
+
 .exercise {
   &__editor {
     height: 100%;
@@ -218,10 +245,6 @@ export default defineComponent({
     &:hover {
       background-color: rgba(25, 119, 210, 0.2);
     }
-  }
-  .button {
-    color: #ffffff;
-    background-color: #1976d2;
   }
 }
 

@@ -5,7 +5,7 @@ test("assert", async () => {
   niklas.registerDefaults();
 
   await expect(niklas.run("assert true")).resolves.toEqual(0);
-  await expect(niklas.run("assert false")).rejects.toHaveProperty("message", "Assertion failed: false")
+  await expect(niklas.run("assert false")).rejects.toHaveProperty("message", "Assertion failed: false");
 });
 
 test("comments", async () => {

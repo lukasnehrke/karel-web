@@ -1,7 +1,7 @@
 {
   "name": "karel",
   "private": "true",
-	"devDependencies": {
-		"prettier": "^2.2.1"
-	}
+  "devDependencies": {
+    "prettier": "^2.2.1"
+  }
 }

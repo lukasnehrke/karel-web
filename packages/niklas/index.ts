@@ -38,7 +38,7 @@ export class Niklas {
     if (parent) {
       this.parent = parent;
       this.depth = parent.depth + 1;
-      this.handlers = parent.handlers
+      this.handlers = parent.handlers;
     } else {
       this.depth = 0;
       this.handlers = {};
@@ -96,12 +96,12 @@ export class Niklas {
           let found = false;
 
           if (this.peek() === "return") {
-            this.get()
-            const value = await this.evaluate(this.tokens)
+            this.get();
+            const value = await this.evaluate(this.tokens);
             if (!this.parent && typeof value !== "number") {
-              throw new SyntaxError("Returned value must be a number")
+              throw new SyntaxError("Returned value must be a number");
             }
-            return resolve(value)
+            return resolve(value);
           }
 
           const handlers = this.getHandlers();
@@ -116,7 +116,7 @@ export class Niklas {
             });
 
             if (result) {
-              return resolve(result)
+              return resolve(result);
             }
 
             if (!next) {
@@ -188,10 +188,10 @@ export class Niklas {
         value = left == ex;
       } else if (this.peek(tokens) === "<") {
         this.get(tokens);
-        value = left < await this.evaluateExpression(tokens);
+        value = left < (await this.evaluateExpression(tokens));
       } else if (this.peek(tokens) === ">") {
         this.get(tokens);
-        value = left > await this.evaluateExpression(tokens);
+        value = left > (await this.evaluateExpression(tokens));
       } else {
         value = left;
       }
@@ -209,31 +209,31 @@ export class Niklas {
   }
 
   protected async evaluateExpression(tokens: string[]): Promise<Value> {
-    const left = await this.evaluateExpressionPriority(tokens) as any;
+    const left = (await this.evaluateExpressionPriority(tokens)) as any;
     if (this.peek(tokens) === "+") {
       this.get(tokens);
-      return left + (await this.evaluateExpression(tokens) as any);
+      return left + ((await this.evaluateExpression(tokens)) as any);
     }
     if (this.peek(tokens) === "-") {
       this.get(tokens);
-      return left - (await this.evaluateExpression(tokens) as any);
+      return left - ((await this.evaluateExpression(tokens)) as any);
     }
     return left;
   }
 
   protected async evaluateExpressionPriority(tokens: string[]): Promise<Value> {
-    const left = await this.evaluateUnary(tokens) as any;
+    const left = (await this.evaluateUnary(tokens)) as any;
     if (this.peek(tokens) === "*") {
       this.get(tokens);
-      return left * (await this.evaluateExpression(tokens) as any);
+      return left * ((await this.evaluateExpression(tokens)) as any);
     }
     if (this.peek(tokens) === "/") {
       this.get(tokens);
-      return left / (await this.evaluateExpression(tokens) as any);
+      return left / ((await this.evaluateExpression(tokens)) as any);
     }
     if (this.peek(tokens) === "%") {
       this.get(tokens);
-      return left % (await this.evaluateExpression(tokens) as any);
+      return left % ((await this.evaluateExpression(tokens)) as any);
     }
     return left;
   }
@@ -343,7 +343,7 @@ export class Niklas {
       }
       if (condition) {
         const niklas = new Niklas(this);
-        const if2 = this.collectUntil(this.tokens, "{", "}")
+        const if2 = this.collectUntil(this.tokens, "{", "}");
         const result = await niklas.run(if2);
         if (this.get() !== "}") {
           throw new Error("If-Block must end with a brace }");
@@ -377,10 +377,10 @@ export class Niklas {
       }
     }
     while (this.peek() === "else") {
-      this.get()
+      this.get();
       if (this.peek() === "if") {
-        this.get()
-        await this.evaluate(this.tokens) // TODO Skip here
+        this.get();
+        await this.evaluate(this.tokens); // TODO Skip here
       }
       if (this.get() !== "{") {
         throw new SyntaxError("Else-Block must begin with a brace {");
