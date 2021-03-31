@@ -27,8 +27,8 @@ export default defineComponent({
     };
 
     const drawCanvas = () => {
+
       if (!world.value) {
-        console.error("World not found in dom.");
         return;
       }
 

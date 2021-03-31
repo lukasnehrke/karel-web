@@ -5,7 +5,7 @@ import { Niklas } from "@evorto/niklas";
 import Split from "split.js";
 
 import Editor from "../components/Editor.vue";
-import World from "@/components/exercise/World.vue";
+import World from "../components/World.vue";
 import Console from "../components/Console.vue";
 
 export default defineComponent({
