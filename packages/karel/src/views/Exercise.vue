@@ -15,10 +15,6 @@ export default defineComponent({
     World,
     Console,
   },
-  beforeRouteLeave(to, from, next) {
-    console.log(this.code);
-    next();
-  },
   setup() {
     const router = useRouter();
     const console = ref();
