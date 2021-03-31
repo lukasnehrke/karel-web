@@ -14,8 +14,8 @@
     "format": "prettier --write . --config ../../.prettierrc.json --ignore-path .gitignore"
   },
   "dependencies": {
+    "@codemirror/basic-setup": "^0.18.0",
     "@evorto/niklas": "workspace:*",
-    "codemirror": "^5.60.0",
     "core-js": "^3.9.1",
     "regenerator-runtime": "^0.13.7",
     "register-service-worker": "^1.7.2",

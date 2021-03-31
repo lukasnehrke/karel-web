@@ -6,8 +6,8 @@ importers:
       prettier: ^2.2.1
   packages/karel:
     dependencies:
+      '@codemirror/basic-setup': 0.18.0
       '@evorto/niklas': link:../niklas
-      codemirror: 5.60.0
       core-js: 3.9.1
       regenerator-runtime: 0.13.7
       register-service-worker: 1.7.2
@@ -29,13 +29,13 @@ importers:
       typescript: 3.9.9
       workbox-webpack-plugin: 6.1.2
     specifiers:
+      '@codemirror/basic-setup': ^0.18.0
       '@evorto/niklas': workspace:*
       '@types/codemirror': ^0.0.103
       '@vue/cli-plugin-babel': ^4.5.11
       '@vue/cli-plugin-typescript': ^4.5.11
       '@vue/cli-service': ^4.5.11
       '@vue/compiler-sfc': ^3.0.0
-      codemirror: ^5.60.0
       core-js: ^3.9.1
       html-loader: ^1.3.2
       regenerator-runtime: ^0.13.7
@@ -1071,6 +1071,190 @@ packages:
     hasBin: true
     resolution:
       integrity: sha512-v9kIhKwjeZThiWrLmj0y17CWoyddASLj9O2yvbZkbvw/N3rWOYy9zkV66ursAoVr0mV15bL8g0c4QZUE6cdDoQ==
+  /@codemirror/autocomplete/0.18.3:
+    dependencies:
+      '@codemirror/language': 0.18.0
+      '@codemirror/state': 0.18.3
+      '@codemirror/text': 0.18.0
+      '@codemirror/tooltip': 0.18.4
+      '@codemirror/view': 0.18.3
+      lezer-tree: 0.13.2
+    dev: false
+    resolution:
+      integrity: sha512-XAilIpYxsessr3Zh39nc5T97Zz9wLMwQTCDlIKapm/VK3JnX1I1jkoe8JqpbyVyabVxGXpB2K88GIVS9X+nLZQ==
+  /@codemirror/basic-setup/0.18.0:
+    dependencies:
+      '@codemirror/autocomplete': 0.18.3
+      '@codemirror/closebrackets': 0.18.0
+      '@codemirror/commands': 0.18.0
+      '@codemirror/comment': 0.18.0
+      '@codemirror/fold': 0.18.0
+      '@codemirror/gutter': 0.18.0
+      '@codemirror/highlight': 0.18.3
+      '@codemirror/history': 0.18.1
+      '@codemirror/language': 0.18.0
+      '@codemirror/lint': 0.18.1
+      '@codemirror/matchbrackets': 0.18.0
+      '@codemirror/rectangular-selection': 0.18.0
+      '@codemirror/search': 0.18.2
+      '@codemirror/state': 0.18.3
+      '@codemirror/view': 0.18.3
+    dev: false
+    resolution:
+      integrity: sha512-3IU6gBIkVVCF+ZtKqzCmYU1GLfbA12OsPYPWWq9rSzEb5G/FrWCA51ERYJpS3CzOI7TfBFjZZYc5j0OiNIF2VQ==
+  /@codemirror/closebrackets/0.18.0:
+    dependencies:
+      '@codemirror/language': 0.18.0
+      '@codemirror/rangeset': 0.18.0
+      '@codemirror/state': 0.18.3
+      '@codemirror/text': 0.18.0
+      '@codemirror/view': 0.18.3
+    dev: false
+    resolution:
+      integrity: sha512-O1RAgUkzF4nq/B8IyXenZKZ1rJi2Mc7I6y4IhWhELiTnjyQy7YdAthTsJ40mNr8kZ6gRbasYe3K7TraITElZJA==
+  /@codemirror/commands/0.18.0:
+    dependencies:
+      '@codemirror/language': 0.18.0
+      '@codemirror/matchbrackets': 0.18.0
+      '@codemirror/state': 0.18.3
+      '@codemirror/text': 0.18.0
+      '@codemirror/view': 0.18.3
+      lezer-tree: 0.13.2
+    dev: false
+    resolution:
+      integrity: sha512-4H63B4oqr8dmJ3VOKvMI7xrZIBJjAdtz3Z0V/Jt0HlIYTe76Omy4h9BS3b9EgyNaWjIO/Slz3KQPwihcC8uR5Q==
+  /@codemirror/comment/0.18.0:
+    dependencies:
+      '@codemirror/state': 0.18.3
+      '@codemirror/text': 0.18.0
+      '@codemirror/view': 0.18.3
+    dev: false
+    resolution:
+      integrity: sha512-yb/8dz/zIzXIa00L0Ed7/R8m2FupPZux/EMquwzbAOnTNcXeeaPVcp9kEMPf85b9D82csunXXdiOSalBVGjKWQ==
+  /@codemirror/fold/0.18.0:
+    dependencies:
+      '@codemirror/gutter': 0.18.0
+      '@codemirror/language': 0.18.0
+      '@codemirror/rangeset': 0.18.0
+      '@codemirror/state': 0.18.3
+      '@codemirror/view': 0.18.3
+    dev: false
+    resolution:
+      integrity: sha512-qZsl85rp1Wm2ifaw1E25paDRVGr0m2vKRIoUG5mv+G2NxJx6lsuMLgU7MKIJQ+3iDHUR2is2yU8d6lOwwp5IEg==
+  /@codemirror/gutter/0.18.0:
+    dependencies:
+      '@codemirror/rangeset': 0.18.0
+      '@codemirror/state': 0.18.3
+      '@codemirror/view': 0.18.3
+    dev: false
+    resolution:
+      integrity: sha512-9hcKzBM5EjhWwrau5Xiv0ll/yOvkgiyLnH7DTsjFCUvuyfbS45WVEMhQ6C+HfsoRVR4TJqRVLJjaIktZqaAqnw==
+  /@codemirror/highlight/0.18.3:
+    dependencies:
+      '@codemirror/language': 0.18.0
+      '@codemirror/rangeset': 0.18.0
+      '@codemirror/state': 0.18.3
+      '@codemirror/view': 0.18.3
+      lezer-tree: 0.13.2
+      style-mod: 4.0.0
+    dev: false
+    resolution:
+      integrity: sha512-NmRmkmWl8ht6Y6Y39ghov84AMPCqhUPIH9fmILs2NaWxZFZf4jGCTzrULnmREGsTie+26+LbKUncIU+PBu1Qng==
+  /@codemirror/history/0.18.1:
+    dependencies:
+      '@codemirror/state': 0.18.3
+      '@codemirror/view': 0.18.3
+    dev: false
+    resolution:
+      integrity: sha512-Aad3p4zs6UYKCUMXYjh7cvPK0ajuL+rMib9yBZ61w81LLl6OkM31Xrn9J6CLJmPxCwP3OJFiqBmNSBQ05oIsTw==
+  /@codemirror/language/0.18.0:
+    dependencies:
+      '@codemirror/state': 0.18.3
+      '@codemirror/text': 0.18.0
+      '@codemirror/view': 0.18.3
+      lezer: 0.13.4
+      lezer-tree: 0.13.2
+    dev: false
+    resolution:
+      integrity: sha512-gryu0Sej1vG3S3njwsJ+bhz9zLoJxZ2TahLlxpqOB3uqVGZrGDyE+GmZBnA6I3hwHvaO1O4WXKScVsKoW6HqFA==
+  /@codemirror/lint/0.18.1:
+    dependencies:
+      '@codemirror/panel': 0.18.1
+      '@codemirror/state': 0.18.3
+      '@codemirror/tooltip': 0.18.4
+      '@codemirror/view': 0.18.3
+      crelt: 1.0.5
+    dev: false
+    resolution:
+      integrity: sha512-2Ueg/ojU56vF5thxMdS67XQzvHNcBnPKw2zgbDVmL/Z+84SMjP7EKvHV5FlbrKFNGZiwnaAKk5MZRYUwBY3f0g==
+  /@codemirror/matchbrackets/0.18.0:
+    dependencies:
+      '@codemirror/language': 0.18.0
+      '@codemirror/state': 0.18.3
+      '@codemirror/view': 0.18.3
+      lezer-tree: 0.13.2
+    dev: false
+    resolution:
+      integrity: sha512-dPDopnZVkD54sSYdmQbyQbPdiuIA83p7XxX6Hp1ScEkOjukwCiFXiA/84x10FUTsQpUYp8bDzm7gwII119bGIw==
+  /@codemirror/panel/0.18.1:
+    dependencies:
+      '@codemirror/state': 0.18.3
+      '@codemirror/view': 0.18.3
+    dev: false
+    resolution:
+      integrity: sha512-5Zo9cUw0QDlFzX4nhIDYjTARPOnPk5rzxAUQo1O35kTLV+6zRh7wsGlvU7VrZnBcIoaAmHfKrZ4lt6+h7fbFGw==
+  /@codemirror/rangeset/0.18.0:
+    dependencies:
+      '@codemirror/state': 0.18.3
+    dev: false
+    resolution:
+      integrity: sha512-+dpK3T6EFv2vkoAc3sTZld0N5SHZDjD3YowFYuMWn0Xw3t+u6k+JZlGBuaFTXdsLeF0auclsm0XhRUpMVuXhTg==
+  /@codemirror/rectangular-selection/0.18.0:
+    dependencies:
+      '@codemirror/state': 0.18.3
+      '@codemirror/text': 0.18.0
+      '@codemirror/view': 0.18.3
+    dev: false
+    resolution:
+      integrity: sha512-BQ4pp2zhXCVZNqct5LtLR3AOWVseENBF/3oOgBmwsCKH7c11NfTqIqgWG5EW8NLOXp8HP8cDm3np8eWez0VkGQ==
+  /@codemirror/search/0.18.2:
+    dependencies:
+      '@codemirror/panel': 0.18.1
+      '@codemirror/rangeset': 0.18.0
+      '@codemirror/state': 0.18.3
+      '@codemirror/text': 0.18.0
+      '@codemirror/view': 0.18.3
+      crelt: 1.0.5
+    dev: false
+    resolution:
+      integrity: sha512-t90Ra34piJDF589hNDmuA1fVKCFDh0FTuTZTHDmmSaWS5OWq2++zAwRTQnOdQD+uGfEUwLQPiLJzu60NDhA5xw==
+  /@codemirror/state/0.18.3:
+    dependencies:
+      '@codemirror/text': 0.18.0
+    dev: false
+    resolution:
+      integrity: sha512-LQlQWFAw+OLd1ufdf8o8yU/iJd88ixw8kOQ8KgEHDZJnegJOz0NafXvkFoWPiLNaiIUxif02KlZXJAPqDThZ4g==
+  /@codemirror/text/0.18.0:
+    dev: false
+    resolution:
+      integrity: sha512-HMzHNIAbjCiCf3tEJMRg6ul01KPuXxQGNiHlHgAnqPguq/CX+L4Nvj5JlWQAI91Pupk18zhmM1c6eaazX4YeTg==
+  /@codemirror/tooltip/0.18.4:
+    dependencies:
+      '@codemirror/state': 0.18.3
+      '@codemirror/view': 0.18.3
+    dev: false
+    resolution:
+      integrity: sha512-LDlDOSEfjoG24uapLN7exK3Z3JchYFKUwWqo1x/9YdlAkmD1ik7cMSQZboCquP1uJVcXhtbpKmaO6vENGVaarg==
+  /@codemirror/view/0.18.3:
+    dependencies:
+      '@codemirror/rangeset': 0.18.0
+      '@codemirror/state': 0.18.3
+      '@codemirror/text': 0.18.0
+      style-mod: 4.0.0
+      w3c-keyname: 2.2.4
+    dev: false
+    resolution:
+      integrity: sha512-9scPYgDoUFRjDKjClCIxPBMZuoiATn01gKGm/OqSODUcsWQ37LS9qs/gJNdrIn8gQNlzI9wNRyBck7ycZo4Rng==
   /@hapi/address/2.1.4:
     deprecated: Moved to 'npm install @sideway/address'
     dev: true
@@ -1979,7 +2163,7 @@ packages:
       node: '>=8'
     hasBin: true
     optionalDependencies:
-      vue-loader-v16: /vue-loader/16.1.2
+      vue-loader-v16: /vue-loader/16.2.0
     peerDependencies:
       '@vue/compiler-sfc': ^3.0.0-beta.14
       less-loader: '*'
@@ -3419,10 +3603,6 @@ packages:
       node: '>= 4.0'
     resolution:
       integrity: sha512-q5/jG+YQnSy4nRTV4F7lPepBJZ8qBNJJDBuJdoejDyLXgmL7IEo+Le2JDZudFTFt7mrCqIRaSjws4ygRCTCAXA==
-  /codemirror/5.60.0:
-    dev: false
-    resolution:
-      integrity: sha512-AEL7LhFOlxPlCL8IdTcJDblJm8yrAGib7I+DErJPdZd4l6imx8IMgKK3RblVgBQqz3TZJR4oknQ03bz+uNjBYA==
   /collect-v8-coverage/1.0.1:
     dev: true
     resolution:
@@ -3723,6 +3903,10 @@ packages:
     dev: true
     resolution:
       integrity: sha512-MJG9liiZ+ogc4TzUwuvbER1JRdgvUFSB5+VR/g5h82fGaIRWMWddtKBHi7/sVhfjQZ6SehlyhvQYrcYkaUIpLg==
+  /crelt/1.0.5:
+    dev: false
+    resolution:
+      integrity: sha512-+BO9wPPi+DWTDcNYhr/W90myha8ptzftZT+LwcmUbbok0rcP/fequmFYCw8NMoH7pkAZQzU78b3kYrlua5a9eA==
   /cross-spawn/5.1.0:
     dependencies:
       lru-cache: 4.1.5
@@ -6979,6 +7163,16 @@ packages:
       node: '>= 0.8.0'
     resolution:
       integrity: sha1-OwmSTt+fCDwEkP3UwLxEIeBHZO4=
+  /lezer-tree/0.13.2:
+    dev: false
+    resolution:
+      integrity: sha512-15ZxW8TxVNAOkHIo43Iouv4zbSkQQ5chQHBpwXcD2bBFz46RB4jYLEEww5l1V0xyIx9U2clSyyrLes+hAUFrGQ==
+  /lezer/0.13.4:
+    dependencies:
+      lezer-tree: 0.13.2
+    dev: false
+    resolution:
+      integrity: sha512-cLQxUVY28VBBqKBt/R8CYeH57KQnIvscAnoahzvhlZTK8qxMkIyGExR6ecEpYYDX06ZhROZrEm1IiPvjLAsTig==
   /lines-and-columns/1.1.6:
     dev: true
     resolution:
@@ -10082,6 +10276,10 @@ packages:
       node: '>=4'
     resolution:
       integrity: sha1-XvjbKV0B5u1sv3qrlpmNeCJSe2g=
+  /style-mod/4.0.0:
+    dev: false
+    resolution:
+      integrity: sha512-OPhtyEjyyN9x3nhPsu76f52yUGXiZcgvsrFVtvTkyGRQJ0XK+GPc6ov1z+lRpbeabka+MYEQxOYRnt5nF30aMw==
   /stylehacks/4.0.3:
     dependencies:
       browserslist: 4.16.3
@@ -10972,7 +11170,7 @@ packages:
         optional: true
     resolution:
       integrity: sha512-j0cqiLzwbeImIC6nVIby2o/ABAWhlppyL/m5oJ67R5MloP0hj/DtFgb0Zmq3J9CG7AJ+AXIvHVnJAPBvrLyuDg==
-  /vue-loader/16.1.2:
+  /vue-loader/16.2.0:
     dependencies:
       chalk: 4.1.0
       hash-sum: 2.0.0
@@ -10980,7 +11178,7 @@ packages:
     dev: true
     optional: true
     resolution:
-      integrity: sha512-8QTxh+Fd+HB6fiL52iEVLKqE9N1JSlMXLR92Ijm6g8PZrwIxckgpqjPDWRP5TWxdiPaHR+alUWsnu1ShQOwt+Q==
+      integrity: sha512-TitGhqSQ61RJljMmhIGvfWzJ2zk9m1Qug049Ugml6QP3t0e95o0XJjk29roNEiPKJQBEi8Ord5hFuSuELzSp8Q==
   /vue-router/4.0.5_vue@3.0.7:
     dependencies:
       vue: 3.0.7
@@ -11014,6 +11212,10 @@ packages:
     dev: true
     resolution:
       integrity: sha512-z8P5DvDNjKDoFIHK7q8r8lackT6l+jo/Ye3HOle7l9nICP9lf1Ci25fy9vHd0JOWewkIFzXIEig3TdKT7JQ5fQ==
+  /w3c-keyname/2.2.4:
+    dev: false
+    resolution:
+      integrity: sha512-tOhfEwEzFLJzf6d1ZPkYfGj+FWhIpBux9ppoP3rlclw3Z0BZv3N7b7030Z1kYth+6rDuAsXUFr+d0VE6Ed1ikw==
   /w3c-xmlserializer/2.0.0:
     dependencies:
       xml-name-validator: 3.0.0
