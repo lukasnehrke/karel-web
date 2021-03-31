@@ -110,7 +110,7 @@ export default defineComponent({
     };
 
     onMounted(() => {
-      Split(["#editor", "#output"], { direction: "horizontal", gutterSize: 4 });
+      Split(["#editor", "#output"], { direction: "horizontal", gutterSize: 4, minSize: [500, 250] });
       Split(["#world", "#console"], { sizes: [80, 20], direction: "vertical", gutterSize: 4 });
     });
 
