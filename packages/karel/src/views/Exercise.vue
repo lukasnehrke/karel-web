@@ -15,6 +15,10 @@ export default defineComponent({
     World,
     Console,
   },
+  beforeRouteLeave(to, from, next) {
+    console.log(this.code);
+    next();
+  },
   setup() {
     const router = useRouter();
     const console = ref();
@@ -112,6 +116,9 @@ export default defineComponent({
     onMounted(() => {
       Split(["#editor", "#output"], { direction: "horizontal", gutterSize: 4, minSize: [500, 250] });
       Split(["#world", "#console"], { sizes: [80, 20], direction: "vertical", gutterSize: 4 });
+      window.addEventListener("beforeunload", () => {
+        saveCode();
+      });
     });
 
     routeUpdated(router.currentRoute.value);
